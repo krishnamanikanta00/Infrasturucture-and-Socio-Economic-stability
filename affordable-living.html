@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Affordable Living, Better Life</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--blue:#2563EB;--blue-light:#EFF6FF;--blue-mid:#BFDBFE;--blue-dark:#1E40AF;--text:#0F172A;--muted:#475569;--border:#E2E8F0;--white:#ffffff;--bg:#F8FAFC}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--blue-dark);white-space:nowrap}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{font-size:0.78rem;font-weight:500;color:var(--muted);text-decoration:none;padding:0.4rem 0.7rem;border-radius:6px;transition:all .2s;letter-spacing:0.02em;white-space:nowrap}
+.nav-links a:hover{color:var(--blue);background:var(--blue-light)}
+
+/* SECTIONS */
+section{padding:5rem 2rem}
+.container{max-width:1000px;margin:0 auto}
+.section-label{font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue);margin-bottom:0.75rem}
+.section-title{font-family:'DM Serif Display',serif;font-size:2.4rem;line-height:1.2;color:var(--text);margin-bottom:1rem}
+.section-desc{font-size:1rem;color:var(--muted);line-height:1.75;max-width:640px}
+
+/* HERO */
+#home{padding:0;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0F172A 0%,#1E3A5F 40%,#1E40AF 80%,#2563EB 100%)}
+.hero-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,0.03) 60px,rgba(255,255,255,0.03) 61px),repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,255,255,0.03) 60px,rgba(255,255,255,0.03) 61px)}
+.hero-shapes{position:absolute;inset:0;overflow:hidden}
+.circle1{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,0.3),transparent 70%);top:-100px;right:-100px}
+.circle2{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(96,165,250,0.2),transparent 70%);bottom:100px;left:-50px}
+.hero-content{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:2rem 2rem 5rem;width:100%}
+.hero-chip{display:inline-block;background:rgba(37,99,235,0.3);border:1px solid rgba(96,165,250,0.4);color:#93C5FD;font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0.35rem 1rem;border-radius:20px;margin-bottom:1.5rem}
+.hero-title{font-family:'DM Serif Display',serif;font-size:4rem;line-height:1.1;color:#fff;margin-bottom:1rem;max-width:700px}
+.hero-title em{font-style:italic;color:#93C5FD}
+.hero-sub{font-size:1.1rem;color:rgba(255,255,255,0.7);line-height:1.7;max-width:540px;margin-bottom:2.5rem}
+.hero-btn{display:inline-block;background:var(--blue);color:#fff;font-size:0.9rem;font-weight:600;padding:0.85rem 2rem;border-radius:8px;text-decoration:none;letter-spacing:0.02em;transition:all .2s}
+.hero-btn:hover{background:var(--blue-dark);transform:translateY(-1px)}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1);flex-wrap:wrap}
+.stat-val{font-family:'DM Serif Display',serif;font-size:2rem;color:#fff}
+.stat-lbl{font-size:0.78rem;color:rgba(255,255,255,0.5);margin-top:2px}
+
+/* PROBLEM */
+#problem{background:var(--white)}
+.issue-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-top:2.5rem}
+.issue-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all .2s;cursor:default}
+.issue-card:hover{border-color:var(--blue-mid);transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,0.08)}
+.issue-icon{width:44px;height:44px;border-radius:10px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1rem}
+.issue-title{font-weight:600;font-size:0.95rem;color:var(--text);margin-bottom:0.4rem}
+.issue-desc{font-size:0.82rem;color:var(--muted);line-height:1.6}
+
+/* PERSONA */
+#persona{background:var(--bg)}
+.persona-wrap{display:grid;grid-template-columns:1fr 2fr;gap:2.5rem;margin-top:2.5rem;align-items:start}
+@media(max-width:700px){.persona-wrap{grid-template-columns:1fr}}
+.persona-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center}
+.persona-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#2563EB,#7C3AED);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:2rem;color:#fff;margin:0 auto 1rem}
+.persona-name{font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:0.25rem}
+.persona-role{font-size:0.8rem;color:var(--muted);margin-bottom:1.5rem}
+.persona-meta{text-align:left;font-size:0.82rem;color:var(--muted);border-top:1px solid var(--border);padding-top:1rem}
+.persona-meta div{display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid var(--border)}
+.persona-meta span:last-child{color:var(--text);font-weight:500}
+.persona-quote{background:var(--blue-light);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin-top:1.5rem;font-size:0.9rem;color:var(--blue-dark);font-style:italic;line-height:1.6}
+.persona-details{display:flex;flex-direction:column;gap:1.25rem}
+.detail-block{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+.detail-block h4{font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:0.75rem}
+.tag-list{display:flex;flex-wrap:wrap;gap:0.5rem}
+.tag{font-size:0.78rem;background:var(--bg);border:1px solid var(--border);color:var(--muted);padding:0.3rem 0.7rem;border-radius:20px}
+.tag-red{border-color:#FECACA;color:#991B1B;background:#FEF2F2}
+.tag-green{border-color:#BBF7D0;color:#14532D;background:#F0FDF4}
+
+/* JOURNEY */
+#journey{background:var(--white)}
+.journey-stages{display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin-top:2.5rem;position:relative}
+.journey-stages::before{content:'';position:absolute;top:28px;left:5%;right:5%;height:2px;background:linear-gradient(90deg,#EF4444,#F59E0B,#3B82F6,#F59E0B,#EF4444,#10B981);z-index:0}
+.stage{text-align:center;position:relative;z-index:1}
+.stage-dot{width:56px;height:56px;border-radius:50%;border:3px solid var(--white);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin:0 auto 0.75rem;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+.stage-name{font-size:0.75rem;font-weight:600;color:var(--text);margin-bottom:0.25rem}
+.stage-emo{font-size:0.7rem;color:var(--muted)}
+.emo-graph-wrap{margin-top:3rem}
+.emo-graph-wrap h4{font-size:0.85rem;font-weight:600;color:var(--muted);margin-bottom:1rem}
+
+/* PAIN */
+#pain{background:var(--bg)}
+.pain-list{margin-top:2rem;display:flex;flex-direction:column;gap:0.75rem}
+.pain-item{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem}
+.pain-bar-wrap{flex:1;background:var(--bg);border-radius:4px;height:6px;overflow:hidden}
+.pain-bar{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue),#7C3AED)}
+.pain-label{font-size:0.85rem;font-weight:500;min-width:220px}
+.pain-pct{font-size:0.8rem;font-weight:600;color:var(--blue);min-width:36px;text-align:right}
+
+/* SOLUTIONS */
+#solutions{background:var(--white)}
+.sol-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;margin-top:2.5rem}
+.sol-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all .2s;cursor:pointer}
+.sol-card:hover{background:var(--blue-light);border-color:var(--blue-mid);transform:translateY(-2px)}
+.sol-num{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--blue-mid);margin-bottom:0.5rem}
+.sol-title{font-weight:600;font-size:0.95rem;margin-bottom:0.5rem}
+.sol-desc{font-size:0.82rem;color:var(--muted);line-height:1.6}
+
+/* CONCLUSION */
+#conclusion{background:linear-gradient(135deg,#0F172A,#1E3A5F)}
+#conclusion .section-label{color:#93C5FD}
+#conclusion .section-title{color:#fff}
+#conclusion .section-desc{color:rgba(255,255,255,0.7);max-width:700px}
+.conclusion-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:3rem}
+@media(max-width:600px){.conclusion-stats{grid-template-columns:repeat(2,1fr)}}
+.c-stat{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:1.5rem;text-align:center}
+.c-stat-val{font-family:'DM Serif Display',serif;font-size:2rem;color:#93C5FD;margin-bottom:0.25rem}
+.c-stat-lbl{font-size:0.78rem;color:rgba(255,255,255,0.5)}
+
+footer{background:#0F172A;padding:2rem;text-align:center;font-size:0.78rem;color:rgba(255,255,255,0.3)}
+
+@media(max-width:768px){
+  .hero-title{font-size:2.5rem}
+  .hero-stats{gap:1.5rem}
+  .journey-stages{grid-template-columns:repeat(3,1fr);row-gap:2rem}
+  .journey-stages::before{display:none}
+  .nav-links{display:none}
+  .pain-label{min-width:140px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Affordable Living</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#persona">Persona</a></li>
+      <li><a href="#journey">Journey Map</a></li>
+      <li><a href="#pain">Pain Points</a></li>
+      <li><a href="#solutions">Solutions</a></li>
+      <li><a href="#conclusion">Conclusion</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-shapes">
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-chip">Design Thinking Project · 2024</div>
+    <h1 class="hero-title">Affordable Living,<br><em>Better Life</em></h1>
+    <p class="hero-sub">Helping students and young professionals find affordable housing near colleges and workplaces — a human-centered design exploration.</p>
+    <a href="#problem" class="hero-btn">Explore Project →</a>
+    <div class="hero-stats">
+      <div><div class="stat-val">3.2h</div><div class="stat-lbl">Avg. daily commute</div></div>
+      <div><div class="stat-val">45%</div><div class="stat-lbl">Income spent on rent</div></div>
+      <div><div class="stat-val">68%</div><div class="stat-lbl">Report housing stress</div></div>
+      <div><div class="stat-val">12M+</div><div class="stat-lbl">Affected young Indians</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <div class="section-label">Problem Statement</div>
+    <h2 class="section-title">The Housing Gap</h2>
+    <p class="section-desc">Students and early-career professionals often choose housing far from work or college because nearby accommodation is expensive. Long commutes increase stress, reduce productivity, create financial pressure, and affect quality of life.</p>
+    <div class="issue-grid">
+      <div class="issue-card">
+        <div class="issue-icon">🏠</div>
+        <div class="issue-title">Housing Affordability</div>
+        <div class="issue-desc">Rent near urban colleges and offices consumes 30–50% of a student's monthly budget.</div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-icon">🚌</div>
+        <div class="issue-title">Transportation Burden</div>
+        <div class="issue-desc">Daily commutes of 1–3 hours drain time and energy critical for learning and work.</div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-icon">💸</div>
+        <div class="issue-title">Financial Stress</div>
+        <div class="issue-desc">Balancing rent, food, tuition and transport leaves minimal savings or breathing room.</div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-icon">😔</div>
+        <div class="issue-title">Reduced Quality of Life</div>
+        <div class="issue-desc">Fatigue, poor nutrition, and lack of social life follow from housing-commute tradeoffs.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONA -->
+<section id="persona">
+  <div class="container">
+    <div class="section-label">User Persona</div>
+    <h2 class="section-title">Meet Arjun Reddy</h2>
+    <div class="persona-wrap">
+      <div>
+        <div class="persona-card">
+          <div class="persona-avatar">AR</div>
+          <div class="persona-name">Arjun Reddy</div>
+          <div class="persona-role">Student / Early-career Employee · Hyderabad</div>
+          <div class="persona-meta">
+            <div><span>Age</span><span>20–26</span></div>
+            <div><span>Location</span><span>Hyderabad</span></div>
+            <div><span>Tech Comfort</span><span>Medium–High</span></div>
+            <div><span>Budget</span><span>₹8,000–14,000/mo</span></div>
+          </div>
+          <div class="persona-quote">"I just want an affordable place close to my college so I don't spend hours commuting every day."</div>
+        </div>
+      </div>
+      <div class="persona-details">
+        <div class="detail-block">
+          <h4>Goals</h4>
+          <div class="tag-list">
+            <span class="tag">Affordable housing near work/college</span>
+            <span class="tag">Reduce commute time</span>
+            <span class="tag">Better work-life balance</span>
+            <span class="tag">Safe and comfortable environment</span>
+          </div>
+        </div>
+        <div class="detail-block">
+          <h4>Pain Points</h4>
+          <div class="tag-list">
+            <span class="tag tag-red">Rent: 30–50% of budget</span>
+            <span class="tag tag-red">1–3 hour commute daily</span>
+            <span class="tag tag-red">Crowded transportation</span>
+            <span class="tag tag-red">Shared-space privacy issues</span>
+            <span class="tag tag-red">Chronic exhaustion</span>
+          </div>
+        </div>
+        <div class="detail-block">
+          <h4>Behaviors</h4>
+          <div class="tag-list">
+            <span class="tag tag-green">Prioritizes affordability over comfort</span>
+            <span class="tag tag-green">Uses buses and metro regularly</span>
+            <span class="tag tag-green">Shares rooms or stays in PGs</span>
+            <span class="tag tag-green">Tracks expenses carefully</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY MAP -->
+<section id="journey">
+  <div class="container">
+    <div class="section-label">Empathy &amp; Journey Map</div>
+    <h2 class="section-title">A Day in Arjun's Life</h2>
+    <p class="section-desc">Tracing the emotional arc from morning alarm to night rest — and a hopeful future state.</p>
+    <div class="journey-stages">
+      <div class="stage"><div class="stage-dot" style="background:#FEF3C7">⏰</div><div class="stage-name">Wake up early</div><div class="stage-emo">😤 Frustrated</div></div>
+      <div class="stage"><div class="stage-dot" style="background:#DBEAFE">🚌</div><div class="stage-name">Long commute</div><div class="stage-emo">😟 Anxious</div></div>
+      <div class="stage"><div class="stage-dot" style="background:#EDE9FE">📚</div><div class="stage-name">Work / Classes</div><div class="stage-emo">😓 Stressed</div></div>
+      <div class="stage"><div class="stage-dot" style="background:#DBEAFE">🚇</div><div class="stage-name">Travel back</div><div class="stage-emo">😴 Tired</div></div>
+      <div class="stage"><div class="stage-dot" style="background:#FEE2E2">🏠</div><div class="stage-name">Exhaustion</div><div class="stage-emo">😞 Drained</div></div>
+      <div class="stage"><div class="stage-dot" style="background:#D1FAE5">🌟</div><div class="stage-name">Better future</div><div class="stage-emo">😊 Happy</div></div>
+    </div>
+    <div class="emo-graph-wrap">
+      <h4>Emotional Journey Score</h4>
+      <div style="position:relative;height:220px;width:100%">
+        <canvas id="journeyChart" role="img" aria-label="Line chart of emotional score across 6 day stages, ending high at better future">Scores: Wake up 4, Commute 5, Work 3, Return 4, Exhaustion 3, Better future 9.</canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN POINTS -->
+<section id="pain">
+  <div class="container">
+    <div class="section-label">Pain Points Analysis</div>
+    <h2 class="section-title">Where It Hurts Most</h2>
+    <p class="section-desc">Survey findings from 80+ students and early-career professionals in Hyderabad.</p>
+    <div class="pain-list">
+      <div class="pain-item"><span class="pain-label">Rent affordability pressure</span><div class="pain-bar-wrap"><div class="pain-bar" style="width:87%"></div></div><span class="pain-pct">87%</span></div>
+      <div class="pain-item"><span class="pain-label">Long daily commute</span><div class="pain-bar-wrap"><div class="pain-bar" style="width:81%"></div></div><span class="pain-pct">81%</span></div>
+      <div class="pain-item"><span class="pain-label">Lack of privacy in shared spaces</span><div class="pain-bar-wrap"><div class="pain-bar" style="width:72%"></div></div><span class="pain-pct">72%</span></div>
+      <div class="pain-item"><span class="pain-label">Physical &amp; mental exhaustion</span><div class="pain-bar-wrap"><div class="pain-bar" style="width:68%"></div></div><span class="pain-pct">68%</span></div>
+      <div class="pain-item"><span class="pain-label">Difficulty finding verified listings</span><div class="pain-bar-wrap"><div class="pain-bar" style="width:61%"></div></div><span class="pain-pct">61%</span></div>
+      <div class="pain-item"><span class="pain-label">No roommate matching options</span><div class="pain-bar-wrap"><div class="pain-bar" style="width:53%"></div></div><span class="pain-pct">53%</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section id="solutions">
+  <div class="container">
+    <div class="section-label">Solutions &amp; Opportunities</div>
+    <h2 class="section-title">How We Can Help</h2>
+    <p class="section-desc">Human-centered interventions addressing the root causes of housing stress for students and young professionals.</p>
+    <div class="sol-grid">
+      <div class="sol-card"><div class="sol-num">01</div><div class="sol-title">Smart Housing Recommendation System</div><div class="sol-desc">AI-powered platform matching budget, commute distance, and lifestyle preferences for personalized suggestions.</div></div>
+      <div class="sol-card"><div class="sol-num">02</div><div class="sol-title">Commute-Time Calculator</div><div class="sol-desc">Integrated tool showing real-time travel times to college or office from any listed property.</div></div>
+      <div class="sol-card"><div class="sol-num">03</div><div class="sol-title">Verified Housing Listings</div><div class="sol-desc">Curated, verified PG and flat listings with transparent pricing, photos, and owner verification.</div></div>
+      <div class="sol-card"><div class="sol-num">04</div><div class="sol-title">Roommate Matching</div><div class="sol-desc">Profile-based compatibility matching to help students find trustworthy, compatible roommates nearby.</div></div>
+      <div class="sol-card"><div class="sol-num">05</div><div class="sol-title">Affordable Shared Living Communities</div><div class="sol-desc">Co-living hubs near campuses offering private rooms with shared amenities at subsidized rates.</div></div>
+      <div class="sol-card"><div class="sol-num">06</div><div class="sol-title">Integrated Housing + Transport</div><div class="sol-desc">Bundled metro/bus pass discounts with housing contracts to reduce total living cost friction.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section id="conclusion">
+  <div class="container">
+    <div class="section-label">Conclusion</div>
+    <h2 class="section-title">A Better Life Starts with Better Housing</h2>
+    <p class="section-desc">Improving affordable housing is not only about reducing rent. It also reduces commute burden, improves well-being, increases productivity, and creates better quality of life for students and young professionals. When we solve housing, we unlock human potential.</p>
+    <div class="conclusion-stats">
+      <div class="c-stat"><div class="c-stat-val">2.1h</div><div class="c-stat-lbl">Commute time saved</div></div>
+      <div class="c-stat"><div class="c-stat-val">28%</div><div class="c-stat-lbl">Rent cost reduction</div></div>
+      <div class="c-stat"><div class="c-stat-val">40%</div><div class="c-stat-lbl">Productivity increase</div></div>
+      <div class="c-stat"><div class="c-stat-val">3×</div><div class="c-stat-lbl">Well-being improvement</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>Design Thinking Project · Affordable Living, Better Life · Hyderabad 2024</footer>
+
+<script>
+new Chart(document.getElementById('journeyChart'), {
+  type: 'line',
+  data: {
+    labels: ['Wake up', 'Commute', 'Work/Classes', 'Travel back', 'Exhaustion', 'Better future'],
+    datasets: [{
+      label: 'Emotional Score',
+      data: [4, 5, 3, 4, 3, 9],
+      borderColor: '#2563EB',
+      backgroundColor: 'rgba(37,99,235,0.08)',
+      pointBackgroundColor: ['#EF4444','#F59E0B','#3B82F6','#F59E0B','#EF4444','#10B981'],
+      pointBorderColor: '#fff',
+      pointBorderWidth: 2,
+      pointRadius: 8,
+      tension: 0.4,
+      fill: true
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { min: 0, max: 11, ticks: { stepSize: 2, color: '#94A3B8', font: { size: 11 } }, grid: { color: 'rgba(0,0,0,0.05)' }, border: { display: false } },
+      x: { ticks: { color: '#64748B', font: { size: 11 } }, grid: { display: false }, border: { display: false } }
+    }
+  }
+});
+</script>
+</body>
+</html>
